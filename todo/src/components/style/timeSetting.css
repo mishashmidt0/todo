@@ -1,0 +1,46 @@
+
+.time-settings {
+    gap: 14px;
+    width: 208px;
+    height: 397px;
+    padding: 18px 19px 18px 16px;
+    background-color: #FFFFFF;
+}
+
+.time-settings__button {
+    width: 173px;
+    height: 34px;
+    text-align: center;
+    font-size: 18px;
+    background-color: #C4C4C4;
+    margin: 5px 0;
+}
+
+.time-settings .calendar {
+    background-color: #DDDDDD;
+}
+
+.time-settings .calendar input {
+    font-size: 16px;
+    margin: 5px 10px 5px 10px;
+    background: #DDDDDD;
+}
+
+.time-settings .checkbox-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    margin: 10px;
+}
+
+.time-settings__checkbox {
+    width: 12px;
+    height: 12px;
+}
+
+.time-settings__label {
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.02em;
+}
