@@ -10,7 +10,6 @@ import {Task} from "./Task";
 export const Tasks = () => {
     const dispatch = useDispatch()
     const todo = useSelector((store: storeType) => store.todoReducer);
-    const [list, setList] = useState(1);
     const [page, setPage] = useState(1);
 
 
@@ -18,7 +17,6 @@ export const Tasks = () => {
         Axios.get('/todos').then((resp) => {
             const allTodos = resp.data;
             dispatch(addBdTodo(allTodos))
-            setList(Math.floor(allTodos.length / 7))
             console.log(todo)
         });
     }, []);

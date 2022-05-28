@@ -38,9 +38,9 @@ class TodoController {
     }
 
     async searchTodo(req, res) {
-        const {str} = req.body
-        const task = await pool.query(`SELECT * FROM todos WHERE shortDesc iLIKE ${str}%`)
-        res.json(task.rows[0])
+        const str = req.params.str;
+        const todos = await pool.query(`SELECT * FROM todos WHERE name iLIKE '${str}%' OR shortDesc iLIKE '${str}%'`)
+        res.json(todos.rows)
     }
 
 }

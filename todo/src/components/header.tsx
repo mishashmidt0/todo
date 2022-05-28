@@ -1,6 +1,28 @@
 import "./style/header.css"
+import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+
+import {Axios} from "../core/core";
+import {addBdTodo} from "../redux/todo-reducer";
 
 export const Header = () => {
+    const [value, setValue] = useState<string>('')
+    const dispatch = useDispatch()
+
+    function changeSearch(el: any) {
+        setValue(el.currentTarget.value)
+    }
+
+    useEffect(() => {
+        const url = !value ? `/todos` : `/todos/find/${value}`;
+        Axios.get(url)
+            .then((resp) => {
+                const allTodos = resp.data;
+                console.log(allTodos)
+                dispatch(addBdTodo(allTodos))
+            });
+    }, [value]);
+
     return (
         <header className="header">
             <div className="search-bar">
@@ -11,7 +33,7 @@ export const Header = () => {
                             fill="#DDDDDD"/>
                     </svg>
                 </div>
-                <input type="text" placeholder="Поиск" className="search-bar__input"/>
+                <input type="text" placeholder="Поиск" className="search-bar__input" onChange={changeSearch} value={value}/>
             </div>
 
             <div className="avatar">
