@@ -11,6 +11,7 @@ export const Tasks = () => {
     const dispatch = useDispatch()
     const todos = useSelector((store: storeType) => store.todoReducer);
     const [page, setPage] = useState(1);
+    const [isSort, setIsSort] = useState(false);
 
 
     useEffect(() => {
@@ -23,25 +24,35 @@ export const Tasks = () => {
     function next() {
         if (page === 7) return
         setPage(prev => prev + 1)
-        Axios.get('/todos').then((resp) => {
-            const allTodos = resp.data;
-            dispatch(addBdTodo(allTodos))
-        });
     }
 
     function prev() {
         if (page === 1) return
         setPage(prev => prev - 1)
-        Axios.get('/todos').then((resp) => {
-            const allTodos = resp.data;
-            dispatch(addBdTodo(allTodos))
-        });
+    }
+
+    function sort() {
+        if (!isSort) {
+            Axios.get('/todos/sort').then((resp) => {
+                const allTodos = resp.data;
+                dispatch(addBdTodo(allTodos))
+                setIsSort(!isSort)
+            });
+        } else {
+            Axios.get('/todos').then((resp) => {
+                const allTodos = resp.data;
+                dispatch(addBdTodo(allTodos))
+                setIsSort(!isSort)
+            });
+        }
+
+
     }
 
     return (
         <section className="task-list">
             <div className="settings-wrapper">
-                <time dateTime="2022-05-08" className="task-list__date">8 мая 2022</time>
+                <time dateTime={new Date().toDateString()} className="task-list__date">{new Date().toDateString()}</time>
 
                 <div className="sorting-wrapper">
                     <div className="task-list__icon">
@@ -51,7 +62,7 @@ export const Tasks = () => {
                                 fill="black"/>
                         </svg>
                     </div>
-                    <p className="task-list__sorting">Сортировать по дате</p>
+                    <p className={isSort ? "active_sort" : "task-list__sorting"} onClick={sort}>Сортировать по дате</p>
                 </div>
             </div>
 

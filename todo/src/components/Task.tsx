@@ -23,6 +23,10 @@ export const Task: FC<TaskProps> = React.memo(({id, name, date, description, isd
         Axios.post(`/todos/update/${id}/${!isdone}`)
             .then((resp) => {
             })
+        Axios.get('/todos').then((resp) => {
+            const allTodos = resp.data;
+            dispatch(addBdTodo(allTodos))
+        });
         dispatch(changeIsDoneTask(id, isActive))
     }
 
