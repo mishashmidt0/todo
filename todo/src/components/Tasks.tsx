@@ -13,17 +13,19 @@ export const Tasks = () => {
     const todos = useSelector((store: storeType) => store.todoReducer);
     const [page, setPage] = useState(1);
     const [isSort, setIsSort] = useState(false);
+    const [maxPage, setMaxPage] = useState<number>(0);
 
 
     useEffect(() => {
         Axios.get('/todos').then((resp) => {
             const allTodos = resp.data;
             dispatch(addBdTodo(allTodos))
+            setMaxPage(Math.floor(allTodos.length / 6))
         });
     }, []);
 
     function next() {
-        if (page === 7) return
+        if (page === maxPage) return
         setPage(prev => prev + 1)
     }
 
@@ -67,7 +69,7 @@ export const Tasks = () => {
                 </div>
             </div>
             {todos.length === 1 ? <Preloader1/> : (todos as stateTodo).map((el, index) => {
-                    if (index >= ((page - 1) * 7) && index < (page * 7)) return <Task {...el} key={el.id}/>
+                    if (index >= ((page - 1) * 6) && index < (page * 6)) return <Task {...el} key={el.id}/>
                 }
             )}
             <div className={'pagination'}>

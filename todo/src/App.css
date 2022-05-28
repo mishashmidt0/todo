@@ -1,13 +1,13 @@
 .wrapper {
     width: 825px;
-    height: 600px;
+    
     margin: 50px auto;
 }
 
 .section-wrapper {
     display: flex;
     flex-direction: row;
-    height: 600px;
+    height: 640px;
 }
 
 .hidden {

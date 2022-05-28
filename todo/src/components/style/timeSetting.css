@@ -2,7 +2,9 @@
 .time-settings {
     gap: 14px;
     width: 274px;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 18px 19px 18px 16px;
     background-color: #FFFFFF;
 }
