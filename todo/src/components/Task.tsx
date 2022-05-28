@@ -1,7 +1,7 @@
 import React, {FC, useState} from "react";
 import "./style/taskStyle.css"
 import {Axios} from "../core/core";
-import {changeIsDoneTask} from "../redux/todo-reducer";
+import {addBdTodo, changeIsDoneTask} from "../redux/todo-reducer";
 import {useDispatch} from "react-redux";
 import Popup from "./Popup";
 

@@ -10,7 +10,6 @@ import {Task} from "./Task";
 export const Tasks = () => {
     const dispatch = useDispatch()
     const todos = useSelector((store: storeType) => store.todoReducer);
-    const activeTodo = useSelector((store: storeType) => store.filterReducer.active);
     const [page, setPage] = useState(1);
 
 
@@ -24,11 +23,19 @@ export const Tasks = () => {
     function next() {
         if (page === 7) return
         setPage(prev => prev + 1)
+        Axios.get('/todos').then((resp) => {
+            const allTodos = resp.data;
+            dispatch(addBdTodo(allTodos))
+        });
     }
 
     function prev() {
         if (page === 1) return
         setPage(prev => prev - 1)
+        Axios.get('/todos').then((resp) => {
+            const allTodos = resp.data;
+            dispatch(addBdTodo(allTodos))
+        });
     }
 
     return (
@@ -49,11 +56,7 @@ export const Tasks = () => {
             </div>
 
             {(todos as stateTodo).map((el, index) => {
-                    if (activeTodo) {
-                        if (index >= ((page - 1) * 7) && index < (page * 7) && !el.isdone) return <Task {...el} key={el.id}/>
-                    } else {
-                        if (index >= ((page - 1) * 7) && index < (page * 7)) return <Task {...el} key={el.id}/>
-                    }
+                    if (index >= ((page - 1) * 7) && index < (page * 7)) return <Task {...el} key={el.id}/>
                 }
             )}
             <div className={'pagination'}>
