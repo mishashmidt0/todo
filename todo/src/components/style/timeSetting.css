@@ -1,8 +1,8 @@
 
 .time-settings {
     gap: 14px;
-    width: 208px;
-    height: 397px;
+    width: 274px;
+
     padding: 18px 19px 18px 16px;
     background-color: #FFFFFF;
 }
@@ -16,6 +16,14 @@
     margin: 5px 0;
 }
 
+.range-picker-input {
+    display: flex;
+    flex-direction: column;
+    background-color: #858585;
+    margin: 10px 0;
+}
+
+
 .time-settings .calendar {
     background-color: #DDDDDD;
 }
@@ -24,6 +32,11 @@
     font-size: 16px;
     margin: 5px 10px 5px 10px;
     background: #DDDDDD;
+    width: 150px;
+}
+
+.range-picker-input__icon {
+    opacity: 0;
 }
 
 .time-settings .checkbox-wrapper {
@@ -44,3 +57,4 @@
     line-height: 12px;
     letter-spacing: 0.02em;
 }
+

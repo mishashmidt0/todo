@@ -18,7 +18,6 @@ export const Header = () => {
         Axios.get(url)
             .then((resp) => {
                 const allTodos = resp.data;
-                console.log(allTodos)
                 dispatch(addBdTodo(allTodos))
             });
     }, [value]);

@@ -39,28 +39,28 @@ const state = [
         shortDesc: 'Изучение методов Массива',
         description: 'Открыть Доку прочитать методы массива',
         isDone: false,
-        date: '2022-05-20'
+        date: '2022-05-28'
     },
     {
         name: 'CSS',
         shortDesc: 'Изучение scss ',
         description: 'Открыть Доку прочитать scss',
         isDone: false,
-        date: '2022-05-24'
+        date: '2022-05-28'
     },
     {
         name: 'React',
         shortDesc: 'Изучение UseEffect',
         description: 'Открыть YouTube посмотреть ',
         isDone: false,
-        date: '2022-05-23'
+        date: '2022-05-28'
     },
     {
         name: 'Кино',
         shortDesc: 'Посмотреть комедию',
         description: 'Посмотреть вечером фильм, посоветовали Ночные игры или Полтора Шпиона',
         isDone: true,
-        date: '2022-05-22',
+        date: '2022-05-28',
     },
 ]
 

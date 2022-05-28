@@ -43,7 +43,7 @@ export const todoReducer = (state: stateTodo = initioState, action: ActionType):
             return [...action.state]
 
         case todoActionType.CHANGEisDONE:
-            return state.map((el) => el.id === action.id ? {...el, isdone: action.isDone} : el)
+            return [...state.map((el) => el.id === action.id ? {...el, isdone: action.isDone} : el)]
 
         default:
             return state

@@ -14,7 +14,7 @@ const Popup: FC<PopupProps> = ({name, date, description, isdone}) => {
                 <div>
                     <h2 className="name">{name}</h2>
 
-                    <time dateTime={(date.slice(0, 10))} className="datetime">{(date).slice(0, 10)}</time>
+                    <time dateTime={date} className="datetime">{date}</time>
                     <div className="task-wrapper2">
                         <input type="checkbox" className="task__checkbox" checked={isdone} readOnly/>
                         <label htmlFor="task1" className="task__label"/>

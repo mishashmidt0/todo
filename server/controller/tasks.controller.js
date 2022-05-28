@@ -15,27 +15,35 @@ class TodoController {
     }
 
     async upDate(req, res) {
-        const todos = await pool.query('SELECT * FROM todos')
+        const id = req.params.id;
+        const isDone = req.params.isDone;
+        const todos = await pool.query(`UPDATE todos SET isDone = ${isDone} WHERE id = ${id}`)
         res.json(todos.rows)
     }
 
     async getTodosDate(req, res) {
-        const {date, date1} = req.body
-        const todos = await pool.query(`SELECT * FROM todos WHERE date BETWEEN ${date} and ${date1}`)
+        const date1 = req.params.date1;
+        const date2 = req.params.date2;
+        const todos = await pool.query(`SELECT * FROM todos WHERE date BETWEEN '${date1}' and '${date2}'`)
+        res.json(todos.rows)
+    }
+
+    async getTodosToday(req, res) {
+        const date = req.params.date;
+        const todos = await pool.query(`SELECT * FROM todos WHERE date = '${date}'`)
         res.json(todos.rows)
     }
 
     async getActiveTodos(req, res) {
-        const todos = await pool.query('SELECT * FROM todos WHERE isDone="true"')
+        const todos = await pool.query('SELECT * FROM todos WHERE isdone = false')
         res.json(todos.rows)
-
     }
 
-    async deleteTodo(req, res) {
-        const id = req.params.id;
-        const task = await pool.query(`DELETE FROM todos where id = $1`, [id])
-        res.json(task.rows[0])
-    }
+    // async deleteTodo(req, res) {
+    //     const id = req.params.id;
+    //     const task = await pool.query(`DELETE FROM todos where id = $1`, [id])
+    //     res.json(task.rows[0])
+    // }
 
     async searchTodo(req, res) {
         const str = req.params.str;
