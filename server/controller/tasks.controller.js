@@ -14,6 +14,11 @@ class TodoController {
         res.json(todos.rows)
     }
 
+    async upDate(req, res) {
+        const todos = await pool.query('SELECT * FROM todos')
+        res.json(todos.rows)
+    }
+
     async getTodosDate(req, res) {
         const {date, date1} = req.body
         const todos = await pool.query(`SELECT * FROM todos WHERE date BETWEEN ${date} and ${date1}`)

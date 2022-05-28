@@ -1,10 +1,43 @@
 import "./style/taskStyle.css"
+import {useEffect, useState} from "react";
+import {Axios} from "../core/core";
+import {useDispatch, useSelector} from "react-redux";
+import {addBdTodo, stateTodo} from "../redux/todo-reducer";
+import {storeType} from "../redux/redux";
+import {Task} from "./Task";
+
 
 export const Tasks = () => {
+    const dispatch = useDispatch()
+    const todo = useSelector((store: storeType) => store.todoReducer);
+    const [list, setList] = useState(1);
+    const [page, setPage] = useState(1);
+
+
+    useEffect(() => {
+        Axios.get('/todos').then((resp) => {
+            const allTodos = resp.data;
+            dispatch(addBdTodo(allTodos))
+            setList(Math.floor(allTodos.length / 7))
+            console.log(todo)
+        });
+    }, []);
+
+    function next() {
+        if (page === 7) return
+        setPage(prev => prev + 1)
+    }
+
+    function prev() {
+        if (page === 1) return
+        setPage(prev => prev - 1)
+    }
+
     return (
         <section className="task-list">
             <div className="settings-wrapper">
                 <time dateTime="2022-05-08" className="task-list__date">8 мая 2022</time>
+
                 <div className="sorting-wrapper">
                     <div className="task-list__icon">
                         <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,40 +49,16 @@ export const Tasks = () => {
                     <p className="task-list__sorting">Сортировать по дате</p>
                 </div>
             </div>
-            <article className="task">
-                <div className="task-wrapper">
-                    <h2 className="task__name">Название</h2>
-                    <p className="task__description">Описание</p>
-                </div>
-                <div className="task-wrapper">
-                    <input type="checkbox" id="task1" className="task__checkbox" checked/>
-                    <label htmlFor="task1" className="task__label"/>
-                    <time dateTime="2022-05-08 00:10" className="task__datetime">08.05.2022 00:10</time>
-                </div>
-            </article>
-            <article className="task">
-                <div className="task-wrapper">
-                    <h2 className="task__name">Название</h2>
-                    <p className="task__description">Описание</p>
-                </div>
-                <div className="task-wrapper">
-                    <input type="checkbox" id="task2" className="task__checkbox"/>
-                    <label htmlFor="task2" className="task__label"/>
-                    <time dateTime="2022-05-08 00:05" className="task__datetime">08.05.2022 00:05</time>
-                </div>
-            </article>
-            <article className="task">
-                <div className="task-wrapper">
-                    <h2 className="task__name">Название</h2>
-                    <p className="task__description">Описание</p>
-                </div>
-                <div className="task-wrapper">
-                    <input type="checkbox" id="task3" className="task__checkbox" checked/>
-                    <label htmlFor="task3" className="task__label"/>
-                    <time dateTime="2022-05-08 00:00" className="task__datetime">08.05.2022 00:00</time>
-                </div>
-            </article>
 
+            {(todo as stateTodo).map((el, index) => {
+                    if (index >= ((page - 1) * 7) && index < (page * 7)) return <Task {...el} key={el.id}/>
+                }
+            )}
+            <div className={'pagination'}>
+                <li className={'prev'} onClick={prev}> {'<'}</li>
+                <li className={'middle'}>{page}</li>
+                <li className={'next'} onClick={next}>{'>'}</li>
+            </div>
         </section>
     )
 }

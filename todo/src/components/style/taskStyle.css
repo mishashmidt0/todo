@@ -1,6 +1,8 @@
 .task {
     display: flex;
     flex-direction: column;
+    margin: 10px 0;
+    cursor: pointer;
 }
 
 .task-list {
@@ -45,6 +47,14 @@
 .task-list .task .task-wrapper {
     display: flex;
     flex-direction: column;
+
+    gap: 7px;
+}
+
+.task-wrapper2 {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
     gap: 7px;
 }
 
@@ -53,10 +63,13 @@
 }
 
 .task-list .task__checkbox {
+    width: 40px;
+    height: 40px;
     position: absolute;
-    z-index: -1;
+    margin: 10px 0 0 0;
     opacity: 0;
 }
+
 
 .task-list .task__checkbox + label {
     display: inline-flex;
@@ -85,4 +98,25 @@
 
 .task-list .task__datetime {
     font-size: 10px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+li {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #717171;
+    border-radius: 50%;
+    text-align: center;
+    margin: auto;
+    font-size: 22px;
+    background-color: #D1D0D0;
+    cursor: pointer;
 }
