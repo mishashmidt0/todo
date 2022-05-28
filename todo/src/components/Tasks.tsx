@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addBdTodo, stateTodo} from "../redux/todo-reducer";
 import {storeType} from "../redux/redux";
 import {Task} from "./Task";
+import {Preloader1} from "./Preloader";
 
 
 export const Tasks = () => {
@@ -65,8 +66,7 @@ export const Tasks = () => {
                     <p className={isSort ? "active_sort" : "task-list__sorting"} onClick={sort}>Сортировать по дате</p>
                 </div>
             </div>
-
-            {(todos as stateTodo).map((el, index) => {
+            {todos.length === 1 ? <Preloader1/> : (todos as stateTodo).map((el, index) => {
                     if (index >= ((page - 1) * 7) && index < (page * 7)) return <Task {...el} key={el.id}/>
                 }
             )}
