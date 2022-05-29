@@ -1,5 +1,5 @@
 import "./style/taskStyle.css"
-import {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Axios} from "../core/core";
 import {useDispatch, useSelector} from "react-redux";
 import {addBdTodo, stateTodo} from "../redux/todo-reducer";
@@ -8,7 +8,7 @@ import {Task} from "./Task";
 import {Preloader1} from "./Preloader";
 
 
-export const Tasks = () => {
+export const Tasks = React.memo(() => {
     const dispatch = useDispatch()
     const todos = useSelector((store: storeType) => store.todoReducer);
     const [page, setPage] = useState(1);
@@ -24,17 +24,17 @@ export const Tasks = () => {
         });
     }, []);
 
-    function next() {
+    const next = useCallback(() => {
         if (page === maxPage) return
         setPage(prev => prev + 1)
-    }
+    }, [maxPage, page])
 
-    function prev() {
+    const prev = useCallback(() => {
         if (page === 1) return
         setPage(prev => prev - 1)
-    }
+    }, [page])
 
-    function sort() {
+    const sort = useCallback(() => {
         if (!isSort) {
             Axios.get('/todos/sort').then((resp) => {
                 const allTodos = resp.data;
@@ -50,7 +50,7 @@ export const Tasks = () => {
         }
 
 
-    }
+    }, [isSort])
 
     return (
         <section className="task-list">
@@ -79,4 +79,4 @@ export const Tasks = () => {
             </div>
         </section>
     )
-}
+})

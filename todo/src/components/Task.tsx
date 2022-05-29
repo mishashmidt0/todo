@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useCallback, useState} from "react";
 import "./style/taskStyle.css"
 import {Axios} from "../core/core";
 import {addBdTodo, changeIsDoneTask} from "../redux/todo-reducer";
@@ -19,7 +19,7 @@ export const Task: FC<TaskProps> = React.memo(({id, name, date, description, isd
     const [isActive, setIsActive] = useState(isdone)
 
 
-    function click() {
+    const click = useCallback(() => {
         Axios.post(`/todos/update/${id}/${!isdone}`)
             .then((resp) => {
             })
@@ -28,10 +28,10 @@ export const Task: FC<TaskProps> = React.memo(({id, name, date, description, isd
             dispatch(addBdTodo(allTodos))
         });
         dispatch(changeIsDoneTask(id, isActive))
-    }
+    }, [isdone, id])
 
 
-    function openWindow(e: any) {
+    const openWindow = useCallback((e: any) => {
         const root = document.getElementById('root');
 
         switch (e.target.classList[0]) {
@@ -51,17 +51,17 @@ export const Task: FC<TaskProps> = React.memo(({id, name, date, description, isd
                 break
         }
 
-    }
+    }, [isOpen, isActive])
 
     const date1 = [new Date(date).getFullYear().toString(), (new Date(date).getMonth() + 1).toString(), new Date(date).getDate().toString()]
 
-    function addZero(date: string[]) {
+    const addZero = useCallback((date: string[]) => {
         return date.map((el, index) => {
             if (index === 0) return el;
             if (el.toString().length === 1) return el = 0 + el;
             return el
         })
-    }
+    }, [])
 
     const newDate = addZero(date1).join('-')
 

@@ -1,14 +1,14 @@
 import {RangeDatePicker} from '@y0c/react-datepicker';
-import {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Axios} from "../core/core";
 import {addBdTodo} from "../redux/todo-reducer";
 import {useDispatch} from "react-redux";
 
-export const Calendar = () => {
+export const Calendar = React.memo(() => {
     const [date, setDate] = useState<string[]>()
     const dispatch = useDispatch()
 
-    function getDate(start: any, end: any) {
+    const getDate=useCallback((start: any, end: any) =>{
         if (!end) return
         const date1 = [new Date(start).getFullYear().toString(), (new Date(start).getMonth() + 1).toString(), new Date(start).getDate().toString()]
         const date2 = [new Date(end).getFullYear().toString(), (new Date(end).getMonth() + 1).toString(), new Date(end).getDate().toString()]
@@ -24,7 +24,7 @@ export const Calendar = () => {
         const st = addZero(date1).join('-')
         const en = addZero(date2).join('-')
         setDate([st, en])
-    }
+    },[])
 
     useEffect(() => {
         if (!date) return
@@ -46,4 +46,4 @@ export const Calendar = () => {
 
         />
     )
-}
+})

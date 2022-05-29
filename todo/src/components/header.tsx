@@ -1,17 +1,17 @@
 import "./style/header.css"
-import {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 
 import {Axios} from "../core/core";
 import {addBdTodo} from "../redux/todo-reducer";
 
-export const Header = () => {
+export const Header = React.memo(() => {
     const [value, setValue] = useState<string>('')
     const dispatch = useDispatch()
 
-    function changeSearch(el: any) {
+    const changeSearch=useCallback((el: any)=> {
         setValue(el.currentTarget.value)
-    }
+    },[])
 
     useEffect(() => {
         const url = !value ? `/todos` : `/todos/find/${value}`;
@@ -44,4 +44,4 @@ export const Header = () => {
             </div>
         </header>
     )
-}
+})

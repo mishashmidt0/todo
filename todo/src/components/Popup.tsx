@@ -7,7 +7,7 @@ interface PopupProps {
     date: string
 }
 
-const Popup: FC<PopupProps> = ({name, date, description, isdone}) => {
+const Popup: FC<PopupProps> =React.memo( ({name, date, description, isdone}) => {
     return (
         <div className={"shadow"}>
             <div className={'container'}>
@@ -28,6 +28,6 @@ const Popup: FC<PopupProps> = ({name, date, description, isdone}) => {
             </div>
         </div>
     );
-};
+});
 
 export default Popup;

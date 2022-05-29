@@ -3,14 +3,13 @@ import {Axios} from "../core/core";
 import {addBdTodo} from "../redux/todo-reducer";
 import {useDispatch} from "react-redux";
 import {Calendar} from "./Calendar";
+import React, {useCallback, useState} from "react";
 
-import {useState} from "react";
-
-export const TimeBlock = () => {
+export const TimeBlock = React.memo(() => {
     const [active, setActive] = useState<boolean>(false)
     const dispatch = useDispatch()
 
-    function getDate(inf: number) {
+    const getDate = useCallback((inf: number) => {
         const today = new Date();
         const d = today.getDate()
         const m = today.getMonth() + 1
@@ -39,13 +38,13 @@ export const TimeBlock = () => {
                 dispatch(addBdTodo(allTodos))
             });
 
-    }
+    }, [])
 
-    function click(inf: number) {
+    const click = useCallback((inf: number) => {
         getDate(inf)
-    }
+    }, [])
 
-    function getActive() {
+    const getActive = useCallback(() => {
         if (!active) {
             Axios.get(`/todos/active`)
                 .then((resp) => {
@@ -61,7 +60,7 @@ export const TimeBlock = () => {
             });
         }
 
-    }
+    }, [active])
 
     return (
         <section className="time-settings">
@@ -77,4 +76,4 @@ export const TimeBlock = () => {
 
         </section>
     )
-}
+})
